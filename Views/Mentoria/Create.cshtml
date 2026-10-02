@@ -191,6 +191,14 @@
     });
 
     async function saveAgendamento(){
+        let horarios = hiddenInput.value.replaceAll("h","").substring(4).split("–")
+        let weekDay = hiddenInput.value.substring(0,3)
+        let newDate = new Date(getNextDayOfTheWeek(weekDay.toLowerCase(), false))
+        let horaio_inicio = new Date(newDate)
+        let horaio_fim= new Date(newDate)
+        horaio_inicio.setHours(parseInt(horarios[0]), 0, 0)
+        horaio_fim.setHours(parseInt(horarios[1]), 0, 0)
+
         const response = await fetch('/Mentoria/Agendar', {
                 method: 'POST',
                 headers: {
@@ -198,8 +206,8 @@
                 },
                 body: JSON.stringify({
                     ID_Mentor: 1,
-                    Horario_Inicio: "2025-11-02T04:00:00Z",
-                    Horario_Fim: "2025-11-02T07:00:00Z",
+                    Horario_Inicio: horaio_inicio,
+                    Horario_Fim: horaio_fim,
                     status: 'Solicitado',
                     Descricao: hiddenInputDesc.value
                 })
@@ -213,6 +221,16 @@
             const result = await response.json();
 
             console.log(result);
+    }
+
+    function getNextDayOfTheWeek(dayName, excludeToday = true, refDate = new Date()) {
+        const dayOfWeek = ["dom","seg","ter","qua","qui","sex","sab"]
+                        .indexOf(dayName.slice(0,3).toLowerCase());
+        if (dayOfWeek < 0) return;
+        refDate.setHours(0,0,0,0);
+        refDate.setDate(refDate.getDate() + +!!excludeToday + 
+                        (dayOfWeek + 7 - refDate.getDay() - +!!excludeToday) % 7);
+        return refDate;
     }
 
     function updateStepIndicator(step) {
