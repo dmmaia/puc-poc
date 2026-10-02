@@ -12,7 +12,7 @@ using ProductManagement.Data;
 namespace PucPoc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20261002134721_CreateProductsTable")]
+    [Migration("20261002165734_CreateProductsTable")]
     partial class CreateProductsTable
     {
         /// <inheritdoc />
@@ -43,16 +43,16 @@ namespace PucPoc.Migrations
                     b.Property<DateTime>("Horario_Inicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ID_Anotacao")
+                    b.Property<int?>("ID_Anotacao")
                         .HasColumnType("int");
 
-                    b.Property<int>("ID_Material_De_Apoio")
+                    b.Property<int?>("ID_Material_De_Apoio")
                         .HasColumnType("int");
 
-                    b.Property<int>("ID_Mentor")
+                    b.Property<int?>("ID_Mentor")
                         .HasColumnType("int");
 
-                    b.Property<int>("ID_Mentorando")
+                    b.Property<int?>("ID_Mentorando")
                         .HasColumnType("int");
 
                     b.Property<string>("Link")

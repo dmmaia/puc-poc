@@ -1,0 +1,45 @@
+@model Nodo.Models.Mentoria
+
+<h2>Editar Mentoria</h2>
+
+<form asp-action="Editar" method="post">
+
+    <input type="hidden" asp-for="ID" />
+
+    <div>
+        <label asp-for="Descricao"></label>
+        <input asp-for="Descricao" />
+    </div>
+
+    <div>
+        <label asp-for="Horario_Inicio"></label>
+        <input asp-for="Horario_Inicio"
+               type="datetime-local" />
+    </div>
+
+    <div>
+        <label asp-for="Horario_Fim"></label>
+        <input asp-for="Horario_Fim"
+               type="datetime-local" />
+    </div>
+
+    <div>
+        <label asp-for="status"></label>
+
+        <select asp-for="status">
+            <option value="Solicitado">Solicitado</option>
+            <option value="Confirmado">Confirmado</option>
+            <option value="Concluido">Concluído</option>
+            <option value="Cancelado">Cancelado</option>
+        </select>
+    </div>
+
+    <button type="submit">
+        Salvar
+    </button>
+
+    <a asp-action="Index">
+        Cancelar
+    </a>
+
+</form>

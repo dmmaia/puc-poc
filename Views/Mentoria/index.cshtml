@@ -61,6 +61,12 @@
                             Excluir
                         </button>
                     </form>
+                    <a asp-controller="Mentoria"
+                    asp-action="Editar"
+                    asp-route-id="@item.ID"
+                    class="btn btn-primary btn-sm">
+                        Editar
+                    </a>
                 </td>
             </tr>
         }

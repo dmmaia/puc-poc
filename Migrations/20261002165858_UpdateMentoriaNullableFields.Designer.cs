@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductManagement.Data;
 
@@ -11,9 +12,11 @@ using ProductManagement.Data;
 namespace PucPoc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20261002165858_UpdateMentoriaNullableFields")]
+    partial class UpdateMentoriaNullableFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,11 +37,11 @@ namespace PucPoc.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("Horario_Fim")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("Horario_Fim")
+                        .HasColumnType("datetime2");
 
-                    b.Property<DateTimeOffset>("Horario_Inicio")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("Horario_Inicio")
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("ID_Anotacao")
                         .HasColumnType("int");

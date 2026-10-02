@@ -214,13 +214,16 @@
             });
 
             if (!response.ok) {
-                console.error('Erro ao criar mentoria');
+                const error = await response.json();
+                console.error('Erro ao criar mentoria:', error);
                 return;
             }
 
             const result = await response.json();
 
             console.log(result);
+
+            window.location.href = '/Mentoria';
     }
 
     function getNextDayOfTheWeek(dayName, excludeToday = true, refDate = new Date()) {

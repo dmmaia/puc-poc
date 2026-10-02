@@ -16,7 +16,6 @@ namespace PucPoc.Controllers
 
         public async Task<ActionResult> Index()
         {
-            Console.WriteLine(await _context.Mentorias.ToListAsync());
            return View(await _context.Mentorias.ToListAsync());
         }
 
@@ -26,17 +25,23 @@ namespace PucPoc.Controllers
         }
 
         [HttpPost]
-        public IActionResult Agendar(
+        public async Task<IActionResult> Agendar(
            [FromBody] Mentoria mentoria)
         {
             try
             {
-                if (ModelState.IsValid)
+                if (!ModelState.IsValid)
                 {
-                    _context.Mentorias.Add(mentoria);
-                    _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return BadRequest(ModelState);
                 }
+               _context.Mentorias.Add(mentoria);
+                await _context.SaveChangesAsync();
+                return Ok(new
+                {
+                    success = true,
+                    message = "Mentoria criada com sucesso",
+                    id = mentoria.ID
+                });
             }
             catch (DbUpdateException ex)
             {
@@ -49,13 +54,41 @@ namespace PucPoc.Controllers
                     Console.WriteLine(ex.InnerException.Message);
                 }
 
-                throw;
+                 return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Erro ao salvar a mentoria."
+                });
             }
-            return Ok(new
+            
+        }
+
+        public async Task<IActionResult> Editar(int id)
+        {
+            var mentoria = await _context.Mentorias.FindAsync(id);
+
+            if (mentoria == null)
             {
-                success = true,
-                message = "Mentoria criada com sucesso"
-            });
+                return NotFound();
+            }
+
+            return View(mentoria);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(Mentoria mentoria)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(mentoria);
+            }
+
+            _context.Mentorias.Update(mentoria);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
