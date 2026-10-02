@@ -1,0 +1,236 @@
+@{
+    ViewData["Title"] = "Novo Agendamento";
+}
+<main class="container py-4">
+    <div class="mx-auto" style="max-width: 680px;">
+        <section class="mb-2">
+            <div class="text-secondary small">TELA</div>
+            <h1 class="h4 fw-bold mb-1">Agendar Mentoria</h1>
+            <p class="text-secondary small mb-0">
+                Escolha de horário e confirmação
+            </p>
+        </section>
+
+        <hr class="border-secondary border-opacity-50 border-dashed my-2 mb-3" />
+
+        <section class="mb-4">
+            <div class="row g-0 border border-secondary-subtle bg-white">
+                <div class="col-12 col-md-4">
+                    <div class="step-item active-step text-center py-2" id="stepIndicator1">
+                        <strong>1. Horário</strong>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="step-item text-center py-2 text-secondary" id="stepIndicator2">
+                        2. Descrição
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="step-item text-center py-2 text-secondary" id="stepIndicator3">
+                        3. Confirmação
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="step1">
+            <section class="border border-secondary-subtle bg-body-secondary p-4">
+                <h2 class="small text-secondary fw-bold mb-3">
+                    SELECIONE UM HORÁRIO DISPONÍVEL
+                </h2>
+
+                <input type="hidden"
+                        name="HorarioSelecionado"
+                        id="HorarioSelecionado" />
+
+                    <div class="row g-2 mb-3">
+                        <div class="col-12 col-md-6">
+                            <button type="button"
+                                    class="btn btn-light border border-2 border-secondary-subtle rounded-0 w-100 text-start py-3 time-option"
+                                    data-value="Seg 19h–20h">
+                                Seg 19h–20h
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <button type="button"
+                                    class="btn btn-light border border-2 border-secondary-subtle rounded-0 w-100 text-start py-3 time-option"
+                                    data-value="Seg 20h–21h">
+                                Seg 20h–21h
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <button type="button"
+                                    class="btn btn-light border border-2 border-secondary-subtle rounded-0 w-100 text-start py-3 time-option"
+                                    data-value="Qua 18h–19h">
+                                Qua 18h–19h
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <button type="button"
+                                    class="btn btn-light border border-2 border-secondary-subtle rounded-0 w-100 text-start py-3 time-option"
+                                    data-value="Qua 19h–20h">
+                                Qua 19h–20h
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <button type="button"
+                                    class="btn btn-light border border-2 border-secondary-subtle rounded-0 w-100 text-start py-3 time-option"
+                                    data-value="Sáb 10h–11h">
+                                Sáb 10h–11h
+                            </button>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <button type="button"
+                                    class="btn btn-light border border-2 border-secondary-subtle rounded-0 w-100 text-start py-3 time-option"
+                                    data-value="Sáb 11h–12h">
+                                Sáb 11h–12h
+                            </button>
+                        </div>
+                    </div>
+
+                    
+            </section>
+        </div>
+
+        <div id="step2" class="d-none">
+            <section class="border border-secondary-subtle bg-body-secondary p-4">
+                <h2 class="small text-secondary fw-bold mb-3">
+                    DESCRIÇÃO
+                </h2>
+
+                 <input type="hidden"
+                        name="DescricaoSelecionado"
+                        id="DescricaoSelecionado" />
+
+                <textarea class="form-control" id="descTextarea" rows="3"></textarea>
+            </section>
+        </div>
+
+        <div id="step3" class="d-none">
+            <section class="border border-secondary-subtle bg-body-secondary p-4">
+                <h2 class="small text-secondary fw-bold mb-3">
+                    CONFIRME AS INFORMAÇÕES
+                </h2>
+                        
+                <div class="col-12 col-md-6">
+                    <span class="fw-bold mb-3">Mentor:</span> <span> José da Silva</span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span class="fw-bold mb-3">Horário:</span> <span id="confirm-horario"></span>
+                </div>
+                <div class="col-12 col-md-6">
+                    <span class="fw-bold mb-3">Descrição:</span> <span id="confirm-desc"></span>
+                </div>
+            </section>
+        </div>
+        <button
+                id="nextButton"
+                class="btn btn-dark rounded-0 px-4"
+                disabled>
+            Próximo →
+        </button>
+    </div>
+</main>
+
+<script>
+    const hiddenInput = document.getElementById("HorarioSelecionado");
+    const hiddenInputDesc = document.getElementById("DescricaoSelecionado");
+    const nextButton = document.getElementById("nextButton");
+
+    let step = 1;
+
+    const step1 = document.getElementById('step1')
+    const step2 = document.getElementById('step2')
+    const step3 = document.getElementById('step3')
+
+    nextButton.addEventListener('click', function() {
+        if(step == 1){
+            step1.classList.add('d-none');
+            step2.classList.remove('d-none');
+
+            step = 2;
+        }else if(step == 2){
+            hiddenInputDesc.value = document.getElementById('descTextarea').value
+
+            step2.classList.add('d-none');
+            step3.classList.remove('d-none');
+
+            document.getElementById('confirm-horario').innerText = hiddenInput.value
+            document.getElementById('confirm-desc').innerText = hiddenInputDesc.value
+
+            step = 3;
+            nextButton.textContent = "Agendar";
+        }
+        else if(step == 3){
+            saveAgendamento()
+        }
+        updateStepIndicator(step)
+    })
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const options = document.querySelectorAll(".time-option");
+
+        options.forEach(function (button) {
+            button.addEventListener("click", function () {
+                options.forEach(function (item) {
+                    item.classList.remove("selected");
+                });
+
+                button.classList.add("selected");
+                hiddenInput.value = button.dataset.value;
+                nextButton.disabled = false;
+            });
+        });
+    });
+
+    async function saveAgendamento(){
+        const response = await fetch('/Mentoria/Agendar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ID_Mentor: 1,
+                    Horario_Inicio: "2025-11-02T04:00:00Z",
+                    Horario_Fim: "2025-11-02T07:00:00Z",
+                    status: 'Solicitado',
+                    Descricao: hiddenInputDesc.value
+                })
+            });
+
+            if (!response.ok) {
+                console.error('Erro ao criar mentoria');
+                return;
+            }
+
+            const result = await response.json();
+
+            console.log(result);
+    }
+
+    function updateStepIndicator(step) {
+        const indicators = [
+            document.getElementById("stepIndicator1"),
+            document.getElementById("stepIndicator2"),
+            document.getElementById("stepIndicator3")
+        ];
+
+        for(var index = 0; index<indicators.length;index++){
+            let indicator = indicators[index]
+            indicator.classList.remove("active-step");
+            indicator.classList.add("text-secondary");
+
+            if (index === step - 1) {
+                indicator.classList.add("active-step");
+                indicator.classList.remove("text-secondary");
+            }
+    }
+}
+</script>

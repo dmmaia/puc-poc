@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Nodo</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PucPoc.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="bg-white border-bottom">
+        <div class="container-fluid px-4 py-2 d-flex align-items-center justify-content-between">
+            <a href="/" class="text-decoration-none fw-bold text-dark fs-5">
+                NODO
+            </a>
+
+            <nav class="d-flex align-items-center gap-3 small">
+                <a href="/Mentoria" class="text-decoration-none text-dark">Mentores</a>
+                <a href="/" class="btn btn-outline-dark btn-sm rounded-0 px-3">
+                    Entrar
+                </a>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - PucPoc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+<style>
+    body {
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f1f1f1;
+    }
+
+    .active-step {
+        background-color: #373737;
+        color: #fff;
+    }
+
+    .step-item {
+        min-height: 38px;
+    }
+
+    .time-option {
+        transition:
+            background-color .12s ease,
+            color .12s ease,
+            border-color .12s ease;
+    }
+
+    .time-option:hover {
+        border-color: #6c757d !important;
+    }
+
+    .time-option.selected {
+        background-color: #373737 !important;
+        color: #fff !important;
+        border-color: #373737 !important;
+    }
+
+    .border-dashed {
+        border-style: dashed !important;
+    }
+
+    @@media (max-width: 768px) {
+        header nav {
+            gap: .5rem !important;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+    }
+</style>
